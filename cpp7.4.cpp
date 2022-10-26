@@ -10,49 +10,61 @@ struct file
 int main()
 {
 
-	int N=0;
+	int N = 0;
 	cin>>N;
 	file f[N];
 	file temp;
-	for(int i=0;i<N;i++)
+	for(int i = 0;i<N;i++)
     {
         cin>>f[i].year>>f[i].month>>f[i].day>>f[i].salary;
     }
-    for(int k=0;k<N;k++)
+ 
+    for(int k = 0;k < N-1;k++)
     {
-        if(f[k].year<f[k+1].year)
-        {
-            temp=f[k];
-            f[k]=f[k+1];
-            f[k+1]=temp;
-        }
-        else
-        {
-            if(f[k].month<f[k+1].month)
+    	for(int j = k+1;j < N;j++)
+    	{
+    		if(f[k].year > f[j].year)
             {
-                temp=f[k];
-            f[k]=f[k+1];
-            f[k+1]=temp;
+               temp = f[k];
+               f[k] = f[j];
+               f[j] = temp;
+ 
             }
-            else
+            else if(f[k].year==f[j].year)
             {
-               if(f[k].day<f[k+1].day)
+                if(f[k].month>f[j].month)
                 {
                 temp=f[k];
-                f[k]=f[k+1];
-                f[k+1]=temp;
+                f[k]=f[j];
+                f[j]=temp;
+   
                 }
-               else
-               {
-                   if(f[k].salary<f[k+1].salary)
+                else if(f[k].month==f[j].month)
                 {
-                temp=f[k];
-                f[k]=f[k+1];
-                f[k+1]=temp;
+                    if(f[k].day>f[j].day)
+                     {
+                        temp=f[k];
+                        f[k]=f[j];
+                        f[j]=temp;
+                     }
+                    else if(f[k].day==f[j].day)
+                     {
+                        if(f[k].salary<f[j].salary)
+                        {
+                           temp=f[k];
+                           f[k]=f[j];
+                           f[j]=temp;
+                        }
+                     }
                 }
-               }
             }
-        }
+		}
+        
     }
+    cout<<"Birthday:\tSalary\n";
+    for(int i=0;i<N;i++)
+    {
+    	cout<<f[i].year<<"/"<<f[i].month<<"/"<<f[i].day<<"\t"<<f[i].salary<<"\n";
+	}
 
 }
